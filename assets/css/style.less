@@ -1,0 +1,168 @@
+@import url(https://fonts.googleapis.com/css?family=Hind:300,400,600);
+
+@white: #fafafa;
+@black: #212121;
+
+@banner_height: 25em;
+
+.text-stroke() {
+    @blur: 1px;
+    text-shadow: -1px -1px @blur @black, 1px -1px @blur @black, 1px 1px @blur @black, -1px 1px @blur @black;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    background: @white;
+    color: @black;
+    font-family: 'Hind', sans-serif;
+    font-size: 12px;
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin-top: 1em;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    line-height: 1.25em;
+}
+
+header {
+    height: @banner_height;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: @black;
+    background-position: center center;
+    background-size: cover;
+    color: @white;
+
+    h1 {
+        font-size: 4em;
+        .text-stroke();
+    }
+
+    a {
+        color: @white;
+    }
+}
+
+.content {
+    width: 100%;
+    max-width: 960px;
+    margin: auto;
+    margin-top: 1em;
+}
+
+#App, .App {
+    padding: 0;
+    margin: 0;
+}
+
+.animeList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.animeBox {
+    @dimensions: 19em;
+    margin: 0 0.5em 1em 0.5em;
+    width: @dimensions;
+    height: @dimensions;
+    overflow: hidden;
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    cursor: pointer;
+
+    &:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: inherit;
+
+        transition: filter 500ms;
+        -webkit-transition: -webkit-filter 500ms;
+        filter: grayscale(0.75);
+        -webkit-filter: grayscale(0.75);
+    }
+
+    &:hover:before {
+        filter: grayscale(0);
+        -webkit-filter: grayscale(0);
+    }
+
+    a {
+        color: @white;
+        .text-stroke();
+        position: absolute;
+        bottom: 0.25em;
+        left: 0.5em;
+    }
+}
+
+.animePage {
+    .details {
+        margin-top: 1em;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+    }
+
+    h1, h2 {
+        text-align: center;
+    }
+
+    .misc, .description, .torrentList {
+        margin: 1em;
+    }
+
+    .misc {
+        flex-grow: 1;
+
+        dl {
+            margin: 0;
+        }
+
+        dt {
+            font-weight: bold;
+        }
+
+        dd {
+            margin-left: 1em;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+    }
+
+    .description {
+        flex-grow: 2;
+    }
+
+    .torrentList {
+        flex-grow: 2;
+        list-style: none;
+        padding: 0;
+
+        li {}
+    }
+}

@@ -1,0 +1,35 @@
+basepath:   'https://anilist.co/api'
+routes:
+    auth:
+        path:   auth
+        routes:
+            accesstoken:
+                method: POST
+                path:   access_token
+                params: ['grant_type', 'client_id', 'client_secret']
+
+    anime:
+        path:   anime
+        routes:
+            get:
+                path:   '{id}'
+            page:
+                path:   '{id}/page'
+            characters:
+                path:   '{id}/characters'
+            staff:
+                path:   '{id}/staff'
+            actors:
+                path:   '{id}/actors'
+            airing:
+                path:   '{id}/airing'
+            search:
+                path:   'search/{query}'
+
+    browse:
+        method: GET
+        path:   browse/anime
+        params: ['year', 'season', 'type', 'status', 'genres', 'genres_exclude', 'sort', 'airing_data', 'full_page', 'page']
+
+    genrelist:
+        path:   genre_list
