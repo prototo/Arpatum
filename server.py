@@ -47,15 +47,19 @@ def torrents(id):
     res, anime = client.anime_page({ "id": id })
     if res != 200:
         return dumps([])
-    title = anime['title_romaji']
-    try:
-        torrents = [nf.__dict__ for nf in nyaac.search(title)]
-        for i, r in enumerate(torrents):
-            torrents[i]['published'] = torrents[i]['published'].isoformat()
-        torrent_sort = lambda t: (t.get('group', ''), t.get('episode', 0), t.get('quality', 0))
-        torrents = sorted(torrents, key=torrent_sort)
-    except:
-        torrents = []
+    titles = [anime.get('title_' + lang, None) for lang in ['romaji', 'japanese', 'english']]
+    titles = [title for title in titles if title != None] + anime.get('synonyms', [])
+    torrents = {}
+    for title in titles:
+        try:
+            results = [nf.__dict__ for nf in nyaac.search(title)]
+            for i, r in enumerate(results):
+                results[i]['published'] = results[i]['published'].isoformat()
+                torrents[results[i]['link']] = results[i]
+        except:
+            pass
+    torrent_sort = lambda t: (t.get('group', ''), t.get('episode', 0), t.get('quality', 0))
+    torrents = sorted(torrents.values(), key=torrent_sort)
     return dumps(torrents)
 
 if __name__ == '__main__':

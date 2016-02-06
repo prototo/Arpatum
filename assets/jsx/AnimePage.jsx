@@ -38,6 +38,7 @@ export default React.createClass({
                         <h2>{this.state.anime.title_japanese}{this.state.anime.title_english ? ` / ${this.state.anime.title_english}` : ''}</h2>
                         <div className="details">
                             <div className="misc">
+                                <h3>Details</h3>
                                 <dl>
                                     <dt>Started</dt>
                                     <dd>{this.state.anime.start_date}</dd>

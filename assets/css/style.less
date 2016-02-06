@@ -80,42 +80,46 @@ header {
 }
 
 .animeBox {
+    .text-stroke();
     @dimensions: 19em;
     margin: 0 0.5em 1em 0.5em;
+    padding: 1em;
     width: @dimensions;
     height: @dimensions;
     overflow: hidden;
     position: relative;
     background-position: center center;
     background-size: cover;
-    cursor: pointer;
+    color: @white;
+    filter: grayscale(0.25);
+    -webkit-filter: grayscale(0.25);
 
-    &:before {
-        content: " ";
+    // &:before {
+    //     content: " ";
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     background: inherit;
+    //
+    //     transition: filter 500ms;
+    //     -webkit-transition: -webkit-filter 500ms;
+    //     filter: grayscale(0.75);
+    //     -webkit-filter: grayscale(0.75);
+    // }
+    //
+    // &:hover:before {
+    //     filter: grayscale(0);
+    //     -webkit-filter: grayscale(0);
+    // }
+
+    a {
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        background: inherit;
-
-        transition: filter 500ms;
-        -webkit-transition: -webkit-filter 500ms;
-        filter: grayscale(0.75);
-        -webkit-filter: grayscale(0.75);
-    }
-
-    &:hover:before {
-        filter: grayscale(0);
-        -webkit-filter: grayscale(0);
-    }
-
-    a {
-        color: @white;
-        .text-stroke();
-        position: absolute;
-        bottom: 0.25em;
-        left: 0.5em;
     }
 }
 
@@ -137,10 +141,8 @@ header {
     }
 
     .misc {
-        flex-grow: 1;
-
         dl {
-            margin: 0;
+            margin: 1em 0 0 0;
         }
 
         dt {
@@ -154,15 +156,39 @@ header {
         }
     }
 
-    .description {
-        flex-grow: 2;
-    }
-
     .torrentList {
-        flex-grow: 2;
-        list-style: none;
-        padding: 0;
+        white-space: nowrap;
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    }
+}
 
-        li {}
+@media (max-width: 600px) {
+    .animePage .details {
+        display: block;
+
+        .misc, .description, .torrentList {
+            margin: 2.5%;
+        }
+
+        .misc {
+            display: inline-block;
+            float: left;
+            width: 20%;
+        }
+
+        .description {
+            display: inline-block;
+            float: left;
+            width: 70%;
+        }
+
+        .torrentList {
+            clear: left;
+            display: block;
+            width: 95%;
+        }
     }
 }

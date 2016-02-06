@@ -8,11 +8,10 @@ export default React.createClass({
         return (
             <div className="animeBox" style={{backgroundImage: 'url('+this.props.data.image_url_lge+')'}}>
                 <h2>
-                    <Link to={`/${this.props.data.id}`}>
-                        {this.props.data.title_romaji}
-                    </Link>
+                    {this.props.data.title_romaji}
                 </h2>
                 <AnimeCountdown data={this.props.data} />
+                <Link to={`/${this.props.data.id}`} />
             </div>
         );
     }

@@ -5,7 +5,7 @@ export default React.createClass({
         let group = this.props.data.group ? `[${this.props.data.group}]` : '';
         let title = this.props.data.title ? `${this.props.data.title}` : '';
         let episode = this.props.data.episode ? `${this.props.data.episode}` : '';
-        let quality = this.props.data.quality ? `[${this.props.data.quality}]` : '';
+        let quality = this.props.data.quality ? `[${this.props.data.quality}p]` : '';
         return (<li className="torrentRow">
             <a href={this.props.data.link}>
                 {group} {title} - {episode} {quality}

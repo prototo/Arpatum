@@ -27,13 +27,10 @@ exports.default = _react2.default.createClass({
             _react2.default.createElement(
                 'h2',
                 null,
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/' + this.props.data.id },
-                    this.props.data.title_romaji
-                )
+                this.props.data.title_romaji
             ),
-            _react2.default.createElement(_AnimeCountdown2.default, { data: this.props.data })
+            _react2.default.createElement(_AnimeCountdown2.default, { data: this.props.data }),
+            _react2.default.createElement(_reactRouter.Link, { to: '/' + this.props.data.id })
         );
     }
 });
@@ -248,6 +245,11 @@ exports.default = _react2.default.createClass({
                             'div',
                             { className: 'misc' },
                             _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Details'
+                            ),
+                            _react2.default.createElement(
                                 'dl',
                                 null,
                                 _react2.default.createElement(
@@ -395,7 +397,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _react2.default.createClass({
     displayName: 'TorrentList',
     getInitialState: function getInitialState() {
-        return { torrents: [] };
+        return { torrents: 0 };
     },
     componentDidMount: function componentDidMount() {
         $.ajax({
@@ -403,18 +405,43 @@ exports.default = _react2.default.createClass({
             dataType: 'json',
             cache: true,
             success: function (data) {
-                this.setState({ torrents: data });
+                this.setState({ torrents: data.length ? data : -1 });
+            }.bind(this),
+            error: function (data) {
+                this.setState({ torrents: -1 });
             }.bind(this)
         });
     },
     render: function render() {
-        var torrent_rows = this.state.torrents.map(function (torrent) {
-            return _react2.default.createElement(_TorrentRow2.default, { data: torrent });
-        });
+        var torrent_rows = undefined;
+        switch (this.state.torrents) {
+            case -2:
+                torrent_rows = "Nyaa is probably broken again";
+                break;
+            case -1:
+                torrent_rows = "No torrents!";
+                break;
+            case 0:
+                torrent_rows = "Loading torrents...";
+                break;
+            default:
+                torrent_rows = this.state.torrents.map(function (torrent) {
+                    return _react2.default.createElement(_TorrentRow2.default, { data: torrent });
+                });
+        }
         return _react2.default.createElement(
-            'ul',
+            'div',
             { className: 'torrentList' },
-            torrent_rows
+            _react2.default.createElement(
+                'h3',
+                null,
+                'Torrents'
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                torrent_rows
+            )
         );
     }
 });
@@ -438,7 +465,7 @@ exports.default = _react2.default.createClass({
         var group = this.props.data.group ? '[' + this.props.data.group + ']' : '';
         var title = this.props.data.title ? '' + this.props.data.title : '';
         var episode = this.props.data.episode ? '' + this.props.data.episode : '';
-        var quality = this.props.data.quality ? '[' + this.props.data.quality + ']' : '';
+        var quality = this.props.data.quality ? '[' + this.props.data.quality + 'p]' : '';
         return _react2.default.createElement(
             'li',
             { className: 'torrentRow' },
